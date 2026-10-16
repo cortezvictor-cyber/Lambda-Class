@@ -11,11 +11,6 @@ public final  class OperaCadena {
 
     public static void filterSe(ArrayList<String> lista, char letra, int n) {
         if (lista == null) return;
-        //SE USA PREDICATE PARA DETERMINAR SI ENCUENTRA ESA PALABRA
-        Predicate<String> tieneTaco = s -> s != null && s.toLowerCase().contains("taco");
-
-        boolean existeTaco = lista.stream().anyMatch(tieneTaco);
-        System.out.println("¿Alguna cadena contiene la palabra 'taco'? " + existeTaco);
         char letraMin = Character.toLowerCase(letra);
 
 
@@ -46,6 +41,8 @@ return palabra.stream()
                         (v1, v2) -> v1
                 ));
     }
+    //6 Modifica Inventario
+
 
 }
 
