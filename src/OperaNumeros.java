@@ -14,9 +14,22 @@ public final class OperaNumeros {
         if (numeros == null) return new HashSet<>();
 
         return numeros.stream()
-                .filter(n -> n % 2 == 0)      // Filtra solo los números pares
-                .map(n -> n * n)              // Eleva cada número al cuadrado
-                .collect(Collectors.toSet()); // Recolecta en un Set (elimina duplicados automáticamente)
+                .filter(n -> n % 2 == 0)
+                .map(n -> n * n)
+                .collect(Collectors.toSet());
+    }
+    // 7. Contador de Frecuencias
+    public static Map<String, Integer> contaFrecuencias(ArrayList<String> palabras) {
+        Map<String, Integer> frecuencias = new HashMap<>();
+        for (String palabra : palabras) {
+            frecuencias.merge(palabra, 1, Integer::sum);
+        }
+        return frecuencias;
+    }
+
+    // 10.Tope de Frecuencias
+    public static void topeFrecuencia(HashMap<String, Integer> mapaFrecuencias, int maximo) {
+        mapaFrecuencias.replaceAll((palabra, frecuencia) -> Math.min(frecuencia, maximo));
     }
 
 

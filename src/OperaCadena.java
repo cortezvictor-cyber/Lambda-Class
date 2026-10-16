@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -42,9 +41,32 @@ return palabra.stream()
                 ));
     }
     //6 Modifica Inventario
+public static void descuento(HashMap<String, Double> inven) {
 
+    System.out.println("==Tienda de 10%");
+    inven.forEach((producto, precio) -> {
+        double precioDescuento = precio * 0.90;
+        System.out.println("Producto:"+producto+ "| Precio Original:" +precio+ "| Precio con Descuento:"+precioDescuento);
+    });
+    }
+    // 8. Clasificador de Palabras (HashMap)
+    public static ArrayList<String> palafrecuencia(HashMap<String, Integer> mapaFrecuencias, int minFrecuencia) {
+        return mapaFrecuencias.entrySet().stream()
+                .filter(entry -> entry.getValue() >= minFrecuencia)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
+    // 9. Deduplicación de Palabras (HashSet)
+    public static Set<String> deduplicapalabra(String frase, int mLetras) {
+        String[] palabrasArray = frase.split("\\s+");
+        return Arrays.stream(palabrasArray)
+                .map(String::toLowerCase)
+                .filter(s -> s.length() >= mLetras)
+                .collect(Collectors.toSet());
+    }
 }
+
 
 
 
