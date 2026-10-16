@@ -1,60 +1,102 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        // Llamadas de prueba (el main queda corto y limpio)
-        System.out.println("1. Multiplicador: " + multiplicar(new ArrayList<>(Arrays.asList(1, 2, 3, 4)), 2));
-        System.out.println("2. Filtro: " + filtrar(new ArrayList<>(Arrays.asList("casa", "auto", "sol")), 'a', 4));
-        System.out.println("3. Mayúsculas: " + aMayusculas(new ArrayList<>(Arrays.asList("hola", "java"))));
-        System.out.println("4. Cuadrados: " + cuadradosUnicos(new ArrayList<>(Arrays.asList(2, 2, 4, 6))));
-        System.out.println("5. Longitudes: " + mapaLongitudes(new ArrayList<>(Arrays.asList("java", "code"))));
 
-        HashMap<String, Double> inv = new HashMap<>(); inv.put("Manzana", 20.0);
-        System.out.print("6. Inventario: "); inventarioDescuento(inv);
+                // 1. El Multiplicador
+                ArrayList<Integer> numeros = new ArrayList<>();
+                numeros.add(2);
+                numeros.add(4);
+                numeros.add(6);
 
-        System.out.println("7. Frecuencias: " + contarFrecuencias(new ArrayList<>(Arrays.asList("a", "b", "a"))));
+                OperaNumeros.multiplicar(numeros, 6);
+                System.out.println("1.Multiplicacion  : " + numeros);
 
-        HashMap<String, Integer> mapa = new HashMap<>(); mapa.put("java", 3); mapa.put("py", 1);
-        System.out.println("8. Clasificador: " + clasificar(mapa, 2));
-        System.out.println("9. Deduplicar: " + deduplicapalabra("Hola HOLA java java", 3));
+        ArrayList<String> cadenas = new ArrayList<>();
+        cadenas.add("Cancion");
+        cadenas.add("Camion");
+        cadenas.add("Calor");
+        cadenas.add("Carlos");
+        cadenas.add("Amor");
 
-        HashMap<String, Integer> tope = new HashMap<>(); tope.put("manzana", 10);
-        System.out.println("10. Tope: " + topeFrecuencias(tope, 5));
+
+        OperaCadena.filterSe(cadenas, 'C', 4);
+        System.out.println("2.Filter: " + cadenas);
+
+//  3. Conversor de Mayúsculas
+        ArrayList<String> minis = new ArrayList<>();
+        minis.add("halago");
+        minis.add("terco");
+        minis.add("envejezco");
+
+        ArrayList<String> mayus = OperaCadena.covierteMay(minis);
+        System.out.println("3. Palabras en mayúsculas: " + mayus);
+
+        // --- 4. Cuadrados Únicos ---
+        ArrayList<Integer> conDuplicados = new ArrayList<>();
+        conDuplicados.add(10);
+        conDuplicados.add(10);
+        conDuplicados.add(8);
+        conDuplicados.add(7); //Como es impar no debe aceptarlo
+        conDuplicados.add(8);
+
+        Set<Integer> cuadrados = OperaNumeros.cuadradosParesUnicos(conDuplicados);
+        System.out.println("4. Cuadrados de solo par: " + cuadrados);
+        //  5. Mapa de Longitudes
+        ArrayList<String> longPalabra = new ArrayList<>();
+        longPalabra.add("jamoncillo");
+        longPalabra.add("Aminoacido");
+        longPalabra.add("Paracetamol");
+
+        Map<String, Integer> longitudes = OperaCadena.mapaDeLongitudes(longPalabra);
+        System.out.println("5. Mapa de longitudes: " + longitudes);
+        //6.Inventario de 10%
+        HashMap<String,Double> inventa=new HashMap<>();
+        inventa.put("Laptop",1800.0);
+        inventa.put("lapiz",13.5);
+        inventa.put("Lentes Ray-ban",9740.35);
+        System.out.println("6.Aplicando Descuento");
+        OperaCadena.descuento(inventa);
+
+        // --- 7. Contador de Frecuencias ---
+        ArrayList<String> listaP = new ArrayList<>();
+        listaP.add("Tarea");
+        listaP.add("Viernes");
+        listaP.add("Tarea");
+        listaP.add("Viernes");
+        listaP.add("Tarea");
+        listaP.add("Vamos");
+
+        Map<String, Integer> frecuencias = OperaNumeros.contaFrecuencias(listaP);
+        System.out.println("7. Frecuencias de Aparicion: " + frecuencias);
+
+//  8. Clasificador de Palabras
+        HashMap<String, Integer> mapaFrec = new HashMap<>();
+        mapaFrec.put("Bandana", 6);
+        mapaFrec.put("Multijugos", 3);
+        mapaFrec.put("Severus", 1);
+        ArrayList<String> pocasVeces = OperaCadena.palafrecuencia(mapaFrec, 5);
+        System.out.println("8. Palabras con frecuencia menor a 5: " + pocasVeces);
+        // 9. Deduplicación de Palabras
+        String frase = "Java tarea para el viernes";
+        Set<String> unicas = OperaCadena.deduplicapalabra(frase, 5);
+        System.out.println("9. Palabras únicas : " + unicas);
+        // --- 10. El Tope de Frecuencias ---
+        HashMap<String, Integer> mapaTope = new HashMap<>();
+        mapaTope.put("Canto", 5);
+        mapaTope.put("Java", 2);
+        mapaTope.put("Linux", 4);
+
+        // Limita todas las frecuencias a un máximo de 3
+        OperaNumeros.topeFrecuencia(mapaTope, 3);
+        System.out.println("10. Topes aplicados : " + mapaTope);
+
     }
 
-    // --- TUS 10 MÉTODOS ---
-    public static ArrayList<Integer> multiplicar(ArrayList<Integer> l, int f) {
-        l.replaceAll(n -> n * f); return l;
-    }
-    public static ArrayList<String> filtrar(ArrayList<String> l, char c, int n) {
-        l.removeIf(s -> s.startsWith(String.valueOf(c)) || s.length() < n); return l;
-    }
-    public static ArrayList<String> aMayusculas(ArrayList<String> l) {
-        return l.stream().map(String::toUpperCase).collect(Collectors.toCollection(ArrayList::new));
-    }
-    public static Set<Integer> cuadradosUnicos(ArrayList<Integer> l) {
-        return l.stream().filter(n -> n % 2 == 0).map(n -> n * n).collect(Collectors.toSet());
-    }
-    public static Map<String, Integer> mapaLongitudes(ArrayList<String> l) {
-        return l.stream().collect(Collectors.toMap(s -> s, String::length, (k1, k2) -> k1));
-    }
-    public static void inventarioDescuento(HashMap<String, Double> inv) {
-        inv.forEach((k, v) -> System.out.print(k + ": " + (v * 0.9)));
-        System.out.println();
-    }
-    public static HashMap<String, Integer> contarFrecuencias(ArrayList<String> l) {
-        HashMap<String, Integer> m = new HashMap<>();
-        l.forEach(p -> m.merge(p, 1, Integer::sum));
-        return m;
-    }
-    public static ArrayList<String> clasificar(HashMap<String, Integer> m, int lim) {
-        return m.entrySet().stream().filter(e -> e.getValue() < lim).map(Map.Entry::getKey).collect(Collectors.toCollection(ArrayList::new));
-    }
-    public static Set<String> deduplicapalabra(String f, int m) {
-        return Arrays.stream(f.split("\\s+")).map(String::toLowerCase).filter(s -> s.length() >= m).collect(Collectors.toSet());
-    }
-    public static HashMap<String, Integer> topeFrecuencias(HashMap<String, Integer> m, int max) {
-        m.replaceAll((k, v) -> v > max ? max : v); return m;
-    }
-}
+            }
+
+
+

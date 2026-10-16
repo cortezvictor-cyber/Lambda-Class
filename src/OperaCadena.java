@@ -43,16 +43,16 @@ return palabra.stream()
     //6 Modifica Inventario
 public static void descuento(HashMap<String, Double> inven) {
 
-    System.out.println("==Tienda de 10%");
+    System.out.println("Tienda de 10%");
     inven.forEach((producto, precio) -> {
         double precioDescuento = precio * 0.90;
         System.out.println("Producto:"+producto+ "| Precio Original:" +precio+ "| Precio con Descuento:"+precioDescuento);
     });
     }
     // 8. Clasificador de Palabras (HashMap)
-    public static ArrayList<String> palafrecuencia(HashMap<String, Integer> mapaFrecuencias, int minFrecuencia) {
-        return mapaFrecuencias.entrySet().stream()
-                .filter(entry -> entry.getValue() >= minFrecuencia)
+    public static ArrayList<String> palafrecuencia(HashMap<String, Integer> mapaFrecuencia, int maxFrecuencia) {
+        return mapaFrecuencia.entrySet().stream()
+                .filter(entry -> entry.getValue() < maxFrecuencia)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
