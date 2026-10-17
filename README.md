@@ -46,4 +46,5 @@ Producto:Lentes Ray-ban| Precio Original:9740.35| Precio con Descuento:8766.315
 9. Palabras únicas : [tarea, viernes]
 
 10. Topes aplicados : {Java=2, Linux=3, Canto=3}
+
 Demostrando el perfecto funcionamiento 
